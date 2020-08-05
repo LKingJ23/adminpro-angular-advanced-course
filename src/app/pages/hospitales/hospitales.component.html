@@ -1,0 +1,100 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+                <input type="text"
+                        class="form-control"
+                        placeholder="Buscar hospital..."
+                        #txtTermino
+                        (keyup)="buscarHospital(txtTermino.value)"/>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div> 
+
+
+<div class="row" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="card-title">Hospitales registrados ({{ hospitales.length }})</h3>
+                    </div>
+
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary"
+                                (click)="abrirSweetAlert()">
+                                <i class="fa fa-hospital-o"></i>
+                                Crear hospital
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w100" style="text-align: center;">Foto</th>
+                                <th>Nombre</th>
+                                <th class="w100 text-nowrap" style="text-align: center;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let hospital of hospitales">
+                                <td style="text-align: center;">
+                                    <img (click)="mostrarModal(hospital)" 
+                                        [src]="hospital.img | imagen:'hospital'" 
+                                        [alt]="hospital.nombre" 
+                                        class="img-70 pointer">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Nombre del hospital" [(ngModel)]="hospital.nombre">
+                                </td>
+
+                                <td class="text-nowrap text-center">
+                                    <button (click)="guardarCambios(hospital)"
+                                        data-toggle="tooltip" 
+                                        data-original-title="Guardar cambios"
+                                        class="btn btn-success cursor"
+                                        style="margin-right: 2%; width: 22%;">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </button>
+                                    <button (click)="eliminarHospital(hospital)" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Borrar"
+                                        class="btn cursor">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <!--
+                <button class="btn btn-secondary">Anteriores</button>
+                &nbsp;
+                <button class="btn btn-secondary">Siguientes</button>
+                -->
+
+            </div>
+        </div>
+    </div>
+</div>

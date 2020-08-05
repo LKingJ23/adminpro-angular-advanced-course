@@ -153,7 +153,7 @@ export class UsuarioService {
                 .map( resp => {
                   Swal.fire({
                     title: 'Usuario borrado',
-                    text: 'El usuario a sido eliminado correctamente',
+                    text: 'El usuario ha sido eliminado correctamente',
                     icon: 'success'
                   });
                   return true;
